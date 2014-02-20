@@ -1,2 +1,2 @@
-rootProject.name='prefabApp'
+rootProject.name='todoApp'
 include 'domain', 'services', 'web'
