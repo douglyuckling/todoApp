@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>prefabApp&mdash;The Pre-Fabricated Web Application</title>
+    <title>ToDo App</title>
 
     <link rel="stylesheet" type="text/css" href="extjs/resources/css/ext-all-neptune-debug.css">
     <script type="text/javascript" src="extjs/ext-all-debug.js"></script>

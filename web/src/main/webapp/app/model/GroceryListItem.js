@@ -1,4 +1,4 @@
-Ext.define('PA.model.GroceryListItem', {
+Ext.define('TA.model.GroceryListItem', {
     extend: 'Ext.data.Model',
     fields: [
         {name: 'id', type: 'string'},

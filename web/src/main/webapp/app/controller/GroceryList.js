@@ -1,4 +1,4 @@
-Ext.define('PA.controller.GroceryList', {
+Ext.define('TA.controller.GroceryList', {
     extend: 'Ext.app.Controller',
     stores: ['GroceryList'],
     models: ['GroceryListItem'],

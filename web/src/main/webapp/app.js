@@ -1,6 +1,6 @@
 Ext.application({
     uses: ['Ext.container.Viewport'],
-    name: 'PA', // Initialism for "prefab app"
+    name: 'TA', // Initialism for "todo app"
 
     controllers: [
         'GroceryList'
