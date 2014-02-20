@@ -1,4 +1,10 @@
-PrefabApp
+TodoApp
 =========
 
-A template project for a Java-based web application using the Spring Framework
+A simple ToDo app to demonstrate a particular technology stack:
+
+* MongoDB
+* Groovy
+* Spring Framework
+* Spock
+* Gradle
