@@ -15,9 +15,12 @@ ext.springVersion = '3.2.3.RELEASE'
 
 subprojects {
     dependencies {
+        compile 'org.codehaus.groovy:groovy:2.2.1'
         compile "org.springframework:spring-beans:${springVersion}"
         compile "org.springframework:spring-context:${springVersion}"
     }
+
+    apply plugin: 'groovy'
 }
 
 project(':services') {
