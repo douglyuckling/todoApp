@@ -25,6 +25,7 @@ class DispatcherServletConfig extends WebMvcConfigurationSupport {
     void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler('/extjs/**').addResourceLocations('/extjs/')
         registry.addResourceHandler('/**/*.js').addResourceLocations('/')
+        registry.addResourceHandler('/**/*.png').addResourceLocations('/')
     }
 
     @Override
