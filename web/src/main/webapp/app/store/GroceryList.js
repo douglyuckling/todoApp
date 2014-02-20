@@ -3,7 +3,7 @@ Ext.define('TA.store.GroceryList', {
     model: 'TA.model.GroceryListItem',
     proxy: {
         type: 'rest',
-        url : 'data/grocerylist',
+        url : 'data/tasks',
         writer: { allowSingle: false },
         pageParam: undefined,
         limitParam: undefined,

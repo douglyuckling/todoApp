@@ -2,15 +2,15 @@ package bmug.todoapp.domain.config
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import bmug.todoapp.domain.repository.DummyGroceryListItemRepositoryImpl
-import bmug.todoapp.domain.repository.GroceryListItemRepository
+import bmug.todoapp.domain.repository.DummyTaskRepositoryImpl
+import bmug.todoapp.domain.repository.TaskRepository
 
 @Configuration
 class DomainConfig {
 
     @Bean
-    GroceryListItemRepository groceryListItemRepository() {
-        return new DummyGroceryListItemRepositoryImpl()
+    TaskRepository taskRepository() {
+        return new DummyTaskRepositoryImpl()
     }
 
 }
