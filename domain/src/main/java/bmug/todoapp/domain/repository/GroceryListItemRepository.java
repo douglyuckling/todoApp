@@ -1,10 +1,10 @@
-package prefabapp.services;
+package bmug.todoapp.domain.repository;
 
-import prefabapp.domain.GroceryListItem;
+import bmug.todoapp.domain.GroceryListItem;
 
 import java.util.Collection;
 
-public interface GroceryListService {
+public interface GroceryListItemRepository {
 
     Collection<GroceryListItem> getItems();
 

@@ -1,4 +1,4 @@
-package prefabapp.config;
+package bmug.todoapp.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -14,7 +14,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import java.util.List;
 
 @Configuration
-@ComponentScan("prefabapp.web.controller")
+@ComponentScan("bmug.todoapp.web.controller")
 public class DispatcherServletConfig extends WebMvcConfigurationSupport {
 
     @Bean

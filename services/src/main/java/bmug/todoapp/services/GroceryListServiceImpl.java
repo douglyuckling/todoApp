@@ -1,8 +1,8 @@
-package prefabapp.services;
+package bmug.todoapp.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import prefabapp.domain.GroceryListItem;
-import prefabapp.domain.repository.GroceryListItemRepository;
+import bmug.todoapp.domain.GroceryListItem;
+import bmug.todoapp.domain.repository.GroceryListItemRepository;
 
 import java.util.Collection;
 

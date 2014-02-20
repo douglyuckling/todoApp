@@ -1,11 +1,11 @@
-package prefabapp.services.config;
+package bmug.todoapp.services.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import prefabapp.domain.config.DomainConfig;
-import prefabapp.services.GroceryListService;
-import prefabapp.services.GroceryListServiceImpl;
+import bmug.todoapp.domain.config.DomainConfig;
+import bmug.todoapp.services.GroceryListService;
+import bmug.todoapp.services.GroceryListServiceImpl;
 
 @Configuration
 @Import(DomainConfig.class)

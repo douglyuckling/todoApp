@@ -1,9 +1,9 @@
-package prefabapp.domain.config;
+package bmug.todoapp.domain.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import prefabapp.domain.repository.DummyGroceryListItemRepositoryImpl;
-import prefabapp.domain.repository.GroceryListItemRepository;
+import bmug.todoapp.domain.repository.DummyGroceryListItemRepositoryImpl;
+import bmug.todoapp.domain.repository.GroceryListItemRepository;
 
 @Configuration
 public class DomainConfig {

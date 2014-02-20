@@ -1,4 +1,4 @@
-package prefabapp.domain;
+package bmug.todoapp.domain;
 
 import java.util.UUID;
 

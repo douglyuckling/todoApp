@@ -1,7 +1,7 @@
-package prefabapp.domain.repository;
+package bmug.todoapp.domain.repository;
 
 import org.springframework.util.StringUtils;
-import prefabapp.domain.GroceryListItem;
+import bmug.todoapp.domain.GroceryListItem;
 
 import java.util.ArrayList;
 import java.util.Collection;
