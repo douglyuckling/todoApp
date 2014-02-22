@@ -3,7 +3,7 @@ Ext.application({
     name: 'TA', // Initialism for "todo app"
 
     controllers: [
-        'GroceryList'
+        'TaskList'
     ],
 
     appFolder: 'app',
@@ -13,9 +13,9 @@ Ext.application({
             layout: 'fit',
             items: [
                 {
-                    xtype: 'grocerylist',
-                    title: 'Grocery List',
-                    store: this.getGroceryListController().getGroceryListStore()
+                    xtype: 'tasklist',
+                    title: 'Tasks',
+                    store: this.getTaskListController().getTasksStore()
                 }
             ]
         });

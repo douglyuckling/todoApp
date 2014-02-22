@@ -1,7 +1,7 @@
-Ext.define('TA.view.GroceryListPanel' ,{
+Ext.define('TA.view.TaskListPanel' ,{
     extend: 'Ext.grid.Panel',
     uses: ['Ext.grid.plugin.RowEditing'],
-    alias: 'widget.grocerylist',
+    alias: 'widget.tasklist',
 
     tools: [{
         type: 'refresh'
@@ -10,30 +10,30 @@ Ext.define('TA.view.GroceryListPanel' ,{
     }],
 
     columns: [{
-        text: 'Item',
-        dataIndex: 'name',
-        width: 150,
+        text: 'Task',
+        dataIndex: 'summary',
+        width: 250,
         editor: {
             xtype: 'textfield',
             allowOnlyWhitespace: false,
-            emptyText: 'New list item...'
+            emptyText: 'New task...'
         }
     }, {
-        text: 'Quantity',
-        dataIndex: 'quantity',
+        text: 'Priority',
+        dataIndex: 'priority',
         width: 85,
         editor: {
             xtype: 'numberfield',
             allowBlank: false
         }
     }, {
-        text: 'Unit',
-        dataIndex: 'unit',
+        text: 'Context',
+        dataIndex: 'context',
         width: 100,
         editor: {
             xtype: 'textfield',
             allowBlank: true,
-            emptyText: 'unit [optional]'
+            emptyText: 'context [optional]'
         }
     }],
 

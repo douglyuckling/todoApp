@@ -18,12 +18,7 @@ class DummyTaskRepositoryImpl implements TaskRepository {
 
     @Override
     Collection<Task> saveTasks(Collection<Task> tasks) {
-        tasks.each { task ->
-            if (!task.id) {
-                task.id = UUID.randomUUID().toString()
-            }
-            storeTask(task)
-        }
+        tasks.each { storeTask(it) }
         return tasks.asImmutable()
     }
 
@@ -33,6 +28,9 @@ class DummyTaskRepositoryImpl implements TaskRepository {
     }
 
     void storeTask(Task task) {
+        if (!task.id) {
+            task.id = UUID.randomUUID().toString()
+        }
         this.tasksById.put(task.getId(), task)
     }
 

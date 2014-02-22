@@ -1,6 +1,6 @@
-Ext.define('TA.store.GroceryList', {
+Ext.define('TA.store.Tasks', {
     extend: 'Ext.data.Store',
-    model: 'TA.model.GroceryListItem',
+    model: 'TA.model.Task',
     proxy: {
         type: 'rest',
         url : 'data/tasks',
