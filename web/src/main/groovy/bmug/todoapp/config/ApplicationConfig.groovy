@@ -1,11 +1,11 @@
 package bmug.todoapp.config
 
+import bmug.todoapp.services.config.ServicesConfig
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Import
 import org.springframework.context.annotation.PropertySource
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer
-import bmug.todoapp.services.config.ServicesConfig
 
 @Configuration
 @Import(ServicesConfig.class)

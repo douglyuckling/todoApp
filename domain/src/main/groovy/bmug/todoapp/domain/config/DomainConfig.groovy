@@ -23,18 +23,21 @@ class DomainConfig {
     @Value('${application.domain.persistence.mongo.database}')
     private String mongoDatabase
 
-    @Bean MongoFactoryBean mongo() {
+    @Bean
+    MongoFactoryBean mongo() {
         MongoFactoryBean mongo = new MongoFactoryBean()
         mongo.host = mongoHost
         mongo.port = mongoPort
         return mongo
     }
 
-    @Bean MongoDbFactory mongoDbFactory(Mongo mongo) throws Exception {
+    @Bean
+    MongoDbFactory mongoDbFactory(Mongo mongo) throws Exception {
         return new SimpleMongoDbFactory(mongo, mongoDatabase);
     }
 
-    @Bean MongoTemplate mongoTemplate() throws Exception {
+    @Bean
+    MongoTemplate mongoTemplate() throws Exception {
         return new MongoTemplate(mongoDbFactory());
     }
 
