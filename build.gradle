@@ -16,9 +16,14 @@ ext.springVersion = '3.2.8.RELEASE'
 subprojects {
     dependencies {
         compile 'org.slf4j:slf4j-api:1.7.6'
-        compile 'org.codehaus.groovy:groovy:2.2.1'
+        compile 'org.codehaus.groovy:groovy-all:2.2.1'
         compile "org.springframework:spring-beans:${springVersion}"
         compile "org.springframework:spring-context:${springVersion}"
+
+        testCompile 'junit:junit:4.11'
+        testCompile 'org.spockframework:spock-core:0.7-groovy-2.0', {
+            exclude group: 'junit', module: 'junit-dep'
+        }
     }
 
     apply plugin: 'groovy'
