@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired
 class TaskServiceImpl implements TaskService {
 
     @Autowired
-    private TaskRepository repository
+    TaskRepository repository
 
     @Override
     Collection<Task> getTasks() {
