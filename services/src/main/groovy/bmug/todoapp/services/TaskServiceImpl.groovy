@@ -11,18 +11,18 @@ class TaskServiceImpl implements TaskService {
 
     @Override
     Collection<Task> getTasks() {
-        return repository.getTasks()
+        return repository.findAll() as List
     }
 
     @Override
     Collection<Task> saveTasks(Collection<Task> tasks) {
         tasks.each { it.ensureId() }
-        return repository.saveTasks(tasks)
+        return repository.save(tasks) as List
     }
 
     @Override
     void deleteTaskById(String taskId) {
-        repository.deleteTaskById(taskId)
+        repository.delete(taskId)
     }
 
 }

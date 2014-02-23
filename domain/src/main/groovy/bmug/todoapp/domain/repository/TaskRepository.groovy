@@ -1,13 +1,8 @@
 package bmug.todoapp.domain.repository
 
 import bmug.todoapp.domain.Task
+import org.springframework.data.repository.CrudRepository
 
-interface TaskRepository {
-
-    Collection<Task> getTasks()
-
-    Collection<Task> saveTasks(Collection<Task> tasks)
-
-    void deleteTaskById(String taskId)
+interface TaskRepository extends CrudRepository<Task, String> {
 
 }
