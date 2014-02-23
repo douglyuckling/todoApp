@@ -10,6 +10,11 @@ Ext.define('TA.view.TaskListPanel' ,{
     }],
 
     columns: [{
+        xtype: 'checkcolumn',
+        dataIndex: 'complete',
+        width: 50,
+        stopSelection: false
+    }, {
         text: 'Task',
         dataIndex: 'summary',
         width: 250,

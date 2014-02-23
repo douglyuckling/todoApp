@@ -8,6 +8,12 @@ class Task {
     String summary
     int priority
     String context
+    boolean complete = false
+
+    // Jackson gets confused when there are two auto-generated getters.
+    boolean getComplete() {
+        return complete
+    }
 
     void ensureId() {
         if (!id) {

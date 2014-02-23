@@ -16,6 +16,9 @@ Ext.define('TA.controller.TaskList', {
                 edit: this.onRowEdit,
                 canceledit: this.onCancelRowEdit,
                 delete: this.onRowDelete
+            },
+            'tasklist checkcolumn[dataIndex=complete]': {
+                checkchange: this.onCompleteCheckboxClicked
             }
         });
 
@@ -45,6 +48,10 @@ Ext.define('TA.controller.TaskList', {
         taskListPanel.getSelectionModel().select(newTask);
         taskListPanel.getView().focusRow(newItemIndex);
         rowEditingPlugin.startEdit(newItemIndex, 0);
+    },
+
+    onCompleteCheckboxClicked: function(column, rowIndex, checked, eOpts) {
+        this.getTasksStore().sync();
     },
 
     onRowEdit: function() {
