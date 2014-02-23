@@ -9,8 +9,19 @@ class Task {
     int priority
     String context
 
+    void ensureId() {
+        if (!id) {
+            setId(UUID.randomUUID().toString())
+        }
+    }
+
+    String getId() {
+        ensureId()
+        return id
+    }
+
     private setId(String newId) {
-        if (id) throw new IllegalStateException('Changing the ID of a task is forbidden')
         id = newId
     }
+
 }

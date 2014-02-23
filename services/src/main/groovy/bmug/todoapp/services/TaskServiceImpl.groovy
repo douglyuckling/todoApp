@@ -16,6 +16,7 @@ class TaskServiceImpl implements TaskService {
 
     @Override
     Collection<Task> saveTasks(Collection<Task> tasks) {
+        tasks.each { it.ensureId() }
         return repository.saveTasks(tasks)
     }
 
