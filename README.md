@@ -3,11 +3,12 @@ TodoApp
 
 A simple ToDo app to demonstrate a particular technology stack:
 
-* MongoDB
-* Groovy
-* Spring Framework
-* Spock
-* Gradle
+[MongoDB](mongodb.org) /
+[Groovy](groovy.codehaus.org) /
+[Spring Framework](projects.spring.io/spring-framework/) /
+[Spring Data](projects.spring.io/spring-data-mongodb/) /
+[Spock](code.google.com/p/spock/) /
+[Gradle](gradle.org)
 
 Getting Started
 ---------------
