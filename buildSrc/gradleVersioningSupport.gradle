@@ -1,6 +1,7 @@
 assert rootProject.hasProperty('intendedGradleVersion')
 
-if (gradle.gradleVersion != rootProject.intendedGradleVersion) {
+// To upgrade the version of Gradle, use `gw wrapper -PbypassGradleVersionCheck=true`
+if (gradle.gradleVersion != rootProject.intendedGradleVersion && !bypassGradleVersionCheck) {
     throw new GradleException("This build is written for Gradle ${rootProject.intendedGradleVersion} but has been executed with Gradle ${gradle.gradleVersion}.")
 }
 

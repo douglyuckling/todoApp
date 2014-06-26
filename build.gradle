@@ -1,4 +1,4 @@
-ext.intendedGradleVersion = '1.6'
+ext.intendedGradleVersion = '1.12'
 apply from: 'buildSrc/gradleVersioningSupport.gradle'
 
 allprojects {
