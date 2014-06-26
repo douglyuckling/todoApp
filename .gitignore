@@ -13,3 +13,4 @@ build/
 
 # General stuff
 *.bak
+.DS_Store
