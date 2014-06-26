@@ -1,3 +1,13 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'org.akhikhl.gretty:gretty:+'
+    }
+}
+
 ext.intendedGradleVersion = '1.12'
 apply from: 'buildSrc/gradleVersioningSupport.gradle'
 

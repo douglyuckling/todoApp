@@ -1,0 +1,36 @@
+apply plugin: 'war'
+
+repositories {
+    ivy {
+        url 'http://cdn.sencha.com/'
+        layout 'pattern', {
+            artifact "ext/gpl/ext-[revision]-gpl.[ext]"
+        }
+    }
+}
+
+configurations {
+    webLibraries
+}
+
+dependencies {
+    webLibraries group: 'com.sencha', name:'extjs', version: '4.2.1', ext: 'zip'
+}
+
+ext.unpackedWebLibraries = fileTree("src/main/webapp") { builtBy 'unpackExtJs' }
+task unpackExtJs(type: Sync) {
+    FileTree extJsArchive = zipTree(configurations.webLibraries.files{it.name == 'extjs'}.iterator().next())
+
+    into unpackedWebLibraries.dir
+    from extJsArchive
+    include 'ext-*/*.js'
+    include 'ext-*/resources/ext-theme-neptune/'
+    include 'ext-*/resources/css/ext-all-neptune*.css'
+    eachFile{ if (relativePath.segments.length) { relativePath.segments[0] = 'extjs' } }
+}
+
+apply plugin: 'org.akhikhl.gretty'
+processResources.dependsOn unpackedWebLibraries
+gretty {
+    contextPath = ''
+}

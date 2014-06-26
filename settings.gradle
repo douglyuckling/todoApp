@@ -1,2 +1,2 @@
 rootProject.name='todoApp'
-include 'domain', 'services', 'web'
+include 'domain', 'services', 'web', 'web:webLibraryOverlay'

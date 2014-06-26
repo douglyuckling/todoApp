@@ -1,4 +1,5 @@
 apply plugin: 'war'
+apply plugin: 'org.akhikhl.gretty'
 
 dependencies {
     compile project(':services')
@@ -12,7 +13,7 @@ dependencies {
 }
 
 // Allow us to deploy directly from Gradle using Jetty
-apply plugin: 'jetty'
-jettyRun {
+gretty {
     contextPath = ''
+    overlay ':web:webLibraryOverlay'
 }
