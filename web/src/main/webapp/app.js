@@ -18,5 +18,8 @@ function(TaskCollection,
     });
 
     taskListView.render();
-    taskCollection.fetch();
+
+    setTimeout(function() {
+        taskCollection.fetch();
+    }, 1000);
 });

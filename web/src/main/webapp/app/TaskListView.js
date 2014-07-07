@@ -9,14 +9,17 @@ function() {
         },
 
         render: function() {
-            var taskTable = document.createElement('table');
-            taskTable.classList.add('table');
+            var taskTable = this.el.getElementsByTagName('table')[0];
 
-            var thead = taskTable.appendChild(document.createElement('thead'));
-            var theadTr = thead.appendChild(document.createElement('tr'));
-            this.visibleFields.forEach(function(fieldName) {
-                theadTr.appendChild(createTextTh(this.fieldMetadata[fieldName].heading));
-            }.bind(this));
+            var thead = taskTable.getElementsByTagName('thead')[0];
+            if (!thead) {
+                thead = taskTable.appendChild(document.createElement('thead'));
+                var theadTr = thead.appendChild(document.createElement('tr'));
+
+                this.visibleFields.forEach(function(fieldName) {
+                    theadTr.appendChild(createTextTh(this.fieldMetadata[fieldName].heading));
+                }.bind(this));
+            }
 
             var tbody = taskTable.appendChild(document.createElement('tbody'));
             this.collection.each(function(task) {
@@ -27,8 +30,12 @@ function() {
                 }.bind(this));
             }.bind(this));
 
-            var oldTaskTable = this.el.getElementsByTagName('table')[0];
-            oldTaskTable.parentNode.replaceChild(taskTable, oldTaskTable);
+            var oldTbody = taskTable.getElementsByTagName('tbody')[0];
+            if (oldTbody) {
+                taskTable.replaceChild(tbody, oldTbody);
+            } else {
+                taskTable.appendChild(tbody);
+            }
         },
 
         visibleFields: ['summary', 'priority', 'context'],
