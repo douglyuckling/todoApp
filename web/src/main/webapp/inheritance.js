@@ -2,8 +2,8 @@ Function.prototype.inheritsFrom = function(parentClass) {
     var childClass = this;
 
     Object.defineProperties(childClass, {
-        __super: { value: parentClass },
-        prototype: { value: Object.create(parentClass.prototype) }
+        prototype: { value: Object.create(parentClass.prototype) },
+        __super: { value: parentClass }
     });
 
     Object.defineProperties(childClass.prototype, {
@@ -11,9 +11,7 @@ Function.prototype.inheritsFrom = function(parentClass) {
         __super_apply: __super_apply
     });
 
-    function __super_apply(args) {
-        this.__super.apply(this, args);
-    }
+    function __super_apply(args) { parentClass.apply(this, args); }
 };
 
 Function.prototype.instanceProperties = function(properties) {
