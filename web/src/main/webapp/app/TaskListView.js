@@ -13,8 +13,9 @@ function() {
             taskTable.classList.add('table');
 
             var thead = taskTable.appendChild(document.createElement('thead'));
+            var theadTr = thead.appendChild(document.createElement('tr'));
             this.visibleFields.forEach(function(fieldName) {
-                thead.appendChild(createTextTh(this.fieldMetadata[fieldName].heading));
+                theadTr.appendChild(createTextTh(this.fieldMetadata[fieldName].heading));
             }.bind(this));
 
             var tbody = taskTable.appendChild(document.createElement('tbody'));
@@ -30,13 +31,25 @@ function() {
             oldTaskTable.parentNode.replaceChild(taskTable, oldTaskTable);
         },
 
-        visibleFields: ['summary'],
+        visibleFields: ['summary', 'priority', 'context'],
 
         fieldMetadata: {
             'summary': {
                 heading: 'Summary',
                 createTd: function(task) {
                     return createTextTd(task.escape('summary'));
+                }
+            },
+            'priority': {
+                heading: 'Priority',
+                createTd: function(task) {
+                    return createTextTd(task.escape('priority'));
+                }
+            },
+            'context': {
+                heading: 'Context',
+                createTd: function(task) {
+                    return createTextTd(task.escape('context'));
                 }
             }
         }
