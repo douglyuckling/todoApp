@@ -48,7 +48,7 @@ function() {
             }
         },
 
-        visibleFields: ['complete', 'summary', 'priority', 'context'],
+        visibleFields: ['complete', 'summary', 'priority', 'context', 'action'],
 
         fieldMetadata: {
             'complete': {
@@ -60,7 +60,7 @@ function() {
                     return th;
                 },
                 createTd: function(task) {
-                    return createCheckmarkTd(task.get('complete'));
+                    return createGlyphiconTd(task.get('complete') ? 'ok' : null);
                 },
                 createFootTd: function() {
                     return createCheckboxInputTd();
@@ -98,6 +98,17 @@ function() {
                 createFootTd: function() {
                     return createTextInputTd();
                 }
+            },
+            'action': {
+                createHeadTh: function() {
+                    return document.createElement('th'); // empty
+                },
+                createTd: function(task) {
+                    return document.createElement('td'); // empty
+                },
+                createFootTd: function() {
+                    return createGlyphiconButtonTd('plus', 'primary');
+                }
             }
         }
 
@@ -109,11 +120,21 @@ function() {
         return td;
     }
 
-    function createCheckmarkTd(checked) {
+    function createGlyphiconTd(glyphiconName) {
         var td = document.createElement('td');
         var icon = td.appendChild(document.createElement('span'));
         icon.classList.add('glyphicon');
-        if (checked) icon.classList.add('glyphicon-ok');
+        if (glyphiconName) icon.classList.add('glyphicon-' + glyphiconName);
+        return td;
+    }
+
+    function createGlyphiconButtonTd(glyphiconName, buttonStyle) {
+        var td = document.createElement('td');
+        var icon = td.appendChild(document.createElement('button'));
+        icon.classList.add('btn');
+        icon.classList.add('glyphicon');
+        if (glyphiconName) icon.classList.add('glyphicon-' + glyphiconName);
+        if (buttonStyle) icon.classList.add('btn-' + buttonStyle);
         return td;
     }
 
