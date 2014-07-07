@@ -12,10 +12,11 @@ function(TaskCollection,
     'use strict';
 
     var taskCollection = new TaskCollection();
-    new TaskListView({
+    var taskListView = new TaskListView({
         collection: taskCollection,
         el: document.getElementById('tasks')
     });
 
+    taskListView.render();
     taskCollection.fetch();
 });

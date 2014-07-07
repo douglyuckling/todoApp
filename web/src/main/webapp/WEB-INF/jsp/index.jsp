@@ -30,7 +30,7 @@
     </nav>
     <div id="tasks" class="panel panel-default">
         <div class="panel-heading">Tasks</div>
-        <ul class="list-group"></ul>
+        <table class="table"></table>
     </div>
 </div>
 </body>

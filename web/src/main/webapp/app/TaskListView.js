@@ -5,26 +5,54 @@ function() {
     return Backbone.View.extend({
 
         initialize: function() {
-            console.log('initialize()'); // REVERT
             this.listenTo(this.collection, 'sync reset', this.render);
         },
 
         render: function() {
-            console.log('render()'); // REVERT
-            var taskListEl = document.createElement('ul');
-            taskListEl.classList.add('list-group');
+            var taskTable = document.createElement('table');
+            taskTable.classList.add('table');
 
-            this.collection.each(function(task) {
-                var taskEl = document.createElement('li');
-                taskEl.classList.add('list-group-item');
-                taskEl.appendChild(document.createTextNode(task.escape('summary')));
-                taskListEl.appendChild(taskEl);
+            var thead = taskTable.appendChild(document.createElement('thead'));
+            this.visibleFields.forEach(function(fieldName) {
+                thead.appendChild(createTextTh(this.fieldMetadata[fieldName].heading));
             }.bind(this));
 
-            var oldTaskListEl = this.el.getElementsByTagName('ul')[0];
-            oldTaskListEl.parentNode.replaceChild(taskListEl, oldTaskListEl);
+            var tbody = taskTable.appendChild(document.createElement('tbody'));
+            this.collection.each(function(task) {
+                var tr = tbody.appendChild(document.createElement('tr'));
+
+                this.visibleFields.forEach(function(fieldName) {
+                    tr.appendChild(this.fieldMetadata[fieldName].createTd(task));
+                }.bind(this));
+            }.bind(this));
+
+            var oldTaskTable = this.el.getElementsByTagName('table')[0];
+            oldTaskTable.parentNode.replaceChild(taskTable, oldTaskTable);
+        },
+
+        visibleFields: ['summary'],
+
+        fieldMetadata: {
+            'summary': {
+                heading: 'Summary',
+                createTd: function(task) {
+                    return createTextTd(task.escape('summary'));
+                }
+            }
         }
 
     });
+
+    function createTextTd(text) {
+        var td = document.createElement('td');
+        td.appendChild(document.createTextNode(text));
+        return td;
+    }
+
+    function createTextTh(text) {
+        var th = document.createElement('th');
+        th.appendChild(document.createTextNode(text));
+        return th;
+    }
 
 });
