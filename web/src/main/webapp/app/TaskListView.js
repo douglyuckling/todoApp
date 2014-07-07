@@ -17,7 +17,7 @@ function() {
                 var theadTr = thead.appendChild(document.createElement('tr'));
 
                 this.visibleFields.forEach(function(fieldName) {
-                    theadTr.appendChild(createTextTh(this.fieldMetadata[fieldName].heading));
+                    theadTr.appendChild(this.fieldMetadata[fieldName].createHeadTh());
                 }.bind(this));
             }
 
@@ -48,11 +48,28 @@ function() {
             }
         },
 
-        visibleFields: ['summary', 'priority', 'context'],
+        visibleFields: ['complete', 'summary', 'priority', 'context'],
 
         fieldMetadata: {
+            'complete': {
+                createHeadTh: function() {
+                    var th = document.createElement('th');
+                    var icon = th.appendChild(document.createElement('span'));
+                    icon.classList.add('glyphicon');
+                    icon.classList.add('glyphicon-ok');
+                    return th;
+                },
+                createTd: function(task) {
+                    return createCheckmarkTd(task.get('complete'));
+                },
+                createFootTd: function() {
+                    return createCheckboxInputTd();
+                }
+            },
             'summary': {
-                heading: 'Summary',
+                createHeadTh: function() {
+                    return createTextTh('Summary');
+                },
                 createTd: function(task) {
                     return createTextTd(task.escape('summary'));
                 },
@@ -61,7 +78,9 @@ function() {
                 }
             },
             'priority': {
-                heading: 'Priority',
+                createHeadTh: function() {
+                    return createTextTh('Priority');
+                },
                 createTd: function(task) {
                     return createTextTd(task.escape('priority'));
                 },
@@ -70,7 +89,9 @@ function() {
                 }
             },
             'context': {
-                heading: 'Context',
+                createHeadTh: function() {
+                    return createTextTh('Context');
+                },
                 createTd: function(task) {
                     return createTextTd(task.escape('context'));
                 },
@@ -85,6 +106,14 @@ function() {
     function createTextTd(text) {
         var td = document.createElement('td');
         td.appendChild(document.createTextNode(text));
+        return td;
+    }
+
+    function createCheckmarkTd(checked) {
+        var td = document.createElement('td');
+        var icon = td.appendChild(document.createElement('span'));
+        icon.classList.add('glyphicon');
+        if (checked) icon.classList.add('glyphicon-ok');
         return td;
     }
 
@@ -110,6 +139,13 @@ function() {
         if (typeof min === 'number') input.setAttribute('min', String(min));
         if (typeof max === 'number') input.setAttribute('max', String(max));
         if (typeof step === 'number') input.setAttribute('step', String(step));
+        return td;
+    }
+
+    function createCheckboxInputTd() {
+        var td = document.createElement('td');
+        var input = td.appendChild(document.createElement('input'));
+        input.setAttribute('type', 'checkbox');
         return td;
     }
 
