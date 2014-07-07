@@ -21,6 +21,12 @@ class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    Task saveTask(Task task) {
+        task.ensureId()
+        return repository.save(task)
+    }
+
+    @Override
     void deleteTaskById(String taskId) {
         repository.delete(taskId)
     }

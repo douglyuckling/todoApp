@@ -41,8 +41,8 @@ class TasksController {
 
     @RequestMapping(value = '/{taskId}', method = PUT)
     @ResponseBody
-    List<Task> updateTask(@PathVariable('taskId') String taskId, @RequestBody List<Task> modifiedTasks) {
-        return new ArrayList<>(taskService.saveTasks(modifiedTasks))
+    Task updateTask(@PathVariable('taskId') String taskId, @RequestBody Task modifiedTask) {
+        return taskService.saveTask(modifiedTask)
     }
 
     @RequestMapping(value = '/{taskId}', method = DELETE)

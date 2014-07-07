@@ -8,6 +8,10 @@ function() {
             this.listenTo(this.collection, 'sync reset', this.render);
         },
 
+        events: {
+            'click tr[data-task-id] > td[data-field-name=complete]': 'onClickComplete'
+        },
+
         render: function() {
             var taskTable = this.el.getElementsByTagName('table')[0];
 
@@ -24,9 +28,11 @@ function() {
             var tbody = taskTable.appendChild(document.createElement('tbody'));
             this.collection.each(function(task) {
                 var tr = tbody.appendChild(document.createElement('tr'));
+                tr.setAttribute('data-task-id', task.id);
 
                 this.visibleFields.forEach(function(fieldName) {
-                    tr.appendChild(this.fieldMetadata[fieldName].createTd(task));
+                    var td = tr.appendChild(this.fieldMetadata[fieldName].createTd(task));
+                    td.setAttribute('data-field-name', fieldName);
                 }.bind(this));
             }.bind(this));
 
@@ -60,7 +66,7 @@ function() {
                     return th;
                 },
                 createTd: function(task) {
-                    return createGlyphiconTd(task.get('complete') ? 'ok' : null);
+                    return createCheckmarkTd(task.get('complete'));
                 },
                 createFootTd: function() {
                     return createCheckboxInputTd();
@@ -110,6 +116,13 @@ function() {
                     return createGlyphiconButtonTd('plus', 'primary');
                 }
             }
+        },
+
+        onClickComplete: function(e) {
+            var taskId = e.currentTarget.parentElement.getAttribute('data-task-id');
+            var task = this.collection.get(taskId);
+            task.set('complete', !task.get('complete'));
+            task.save();
         }
 
     });
@@ -125,6 +138,12 @@ function() {
         var icon = td.appendChild(document.createElement('span'));
         icon.classList.add('glyphicon');
         if (glyphiconName) icon.classList.add('glyphicon-' + glyphiconName);
+        return td;
+    }
+
+    function createCheckmarkTd(checked) {
+        var td = createGlyphiconTd(checked ? 'ok' : null);
+        td.classList.add('checkmark');
         return td;
     }
 
