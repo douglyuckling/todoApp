@@ -35,8 +35,8 @@ class TasksController {
 
     @RequestMapping(value = ['', '/'], method = POST)
     @ResponseBody
-    List<Task> createTasks(@RequestBody List<Task> newTasks) {
-        return new ArrayList<>(taskService.saveTasks(newTasks))
+    Task createTask(@RequestBody Task newTask) {
+        return taskService.saveTask(newTask)
     }
 
     @RequestMapping(value = '/{taskId}', method = PUT)

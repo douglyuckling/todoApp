@@ -41,6 +41,15 @@ function() {
             this.$summary.toggle(visibleFields.contains('context'));
 
             return this;
+        },
+
+        getFormValues: function() {
+            return {
+                complete: false,
+                summary: this.$summaryInput.val(),
+                priority: this.$priorityInput.val(),
+                context: this.$contextInput.val()
+            };
         }
     });
 

@@ -27,7 +27,8 @@ function(TaskListHeaderRowView,
         },
 
         events: {
-            'click tr[data-task-id] > td[data-field-name=complete]': 'onClickComplete'
+            'click tr[data-task-id] > td[data-field-name=complete]': 'onClickComplete',
+            'click button[name="add"]': 'onClickAddTask'
         },
 
         visibleFields: ['complete', 'summary', 'priority', 'context', 'action'],
@@ -69,6 +70,10 @@ function(TaskListHeaderRowView,
             var task = this.collection.get(taskId);
             task.set('complete', !task.get('complete'));
             task.save();
+        },
+
+        onClickAddTask: function(e) {
+            this.collection.create(this.newItemRowView.getFormValues(), {wait: true});
         }
 
     });
