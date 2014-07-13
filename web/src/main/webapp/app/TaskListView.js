@@ -23,11 +23,12 @@ function(TaskListHeaderRowView,
             this.headerRowView = new TaskListHeaderRowView({tableView: this});
             this.itemRowViewsByTaskId = {};
             this.newItemRowView = new TaskListNewTaskRowView({tableView: this});
-            this.listenTo(this.collection, 'sync reset', this.render);
+            this.listenTo(this.collection, 'sync reset remove', this.render);
         },
 
         events: {
             'click tr[data-task-id] > td[data-field-name=complete]': 'onClickComplete',
+            'click button[name="delete"]': 'onClickDeleteTask',
             'click button[name="add"]': 'onClickAddTask'
         },
 
@@ -66,10 +67,16 @@ function(TaskListHeaderRowView,
         },
 
         onClickComplete: function(e) {
-            var taskId = e.currentTarget.parentElement.getAttribute('data-task-id');
+            var taskId = $(e.currentTarget).closest('[data-taks-id]').attr('data-task-id');
             var task = this.collection.get(taskId);
             task.set('complete', !task.get('complete'));
             task.save();
+        },
+
+        onClickDeleteTask: function(e) {
+            var taskId = $(e.currentTarget).closest('[data-task-id]').attr('data-task-id');
+            var task = this.collection.get(taskId);
+            task.destroy();
         },
 
         onClickAddTask: function(e) {

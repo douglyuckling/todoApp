@@ -3,7 +3,20 @@ body {
     padding-bottom: 20px;
 }
 
-#tasks tr > [data-field-name="complete"] {
+#tasks tr[data-task-id] > td.actions > * {
+    opacity: 0;
+    -webkit-transition: opacity 250ms cubic-bezier(0.215, 0.61, 0.355, 1); /* easeOutCubic */
+    transition:         opacity 250ms cubic-bezier(0.215, 0.61, 0.355, 1); /* easeOutCubic */
+}
+#tasks tr[data-task-id]:hover > td.actions > * {
+    opacity: 0.5;
+}
+#tasks tr[data-task-id]:hover > td.actions > :hover {
+    opacity: 1;
+}
+
+#tasks tr > [data-field-name="complete"],
+#tasks tr > td.actions {
     text-align: center;
 }
 

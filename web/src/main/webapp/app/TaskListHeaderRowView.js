@@ -7,7 +7,7 @@ function() {
     $rowFragment.append($('<th data-field-name="summary">Summary<th>'));
     $rowFragment.append($('<th data-field-name="priority">Priority</th>'));
     $rowFragment.append($('<th data-field-name="context">Context</th>'));
-    $rowFragment.append($('<th></th>'));
+    $rowFragment.append($('<th class="actions"></th>'));
 
     function cloneRowFragment() {
         return $rowFragment[0].cloneNode(true);

@@ -7,7 +7,7 @@ function() {
     $rowFragment.append($('<td data-field-name="summary"><input class="form-control" type="text"><td>'));
     $rowFragment.append($('<td data-field-name="priority"><input class="form-control" type="number" min="0" step="1"></td>'));
     $rowFragment.append($('<td data-field-name="context"><input class="form-control" type="text"></td>'));
-    $rowFragment.append($('<td><button name="add" class="btn btn-primary glyphicon glyphicon-plus"></td>'));
+    $rowFragment.append($('<td class="actions"><button name="add" class="btn btn-primary glyphicon glyphicon-plus"></td>'));
 
     function cloneRowFragment() {
         return $rowFragment[0].cloneNode(true);

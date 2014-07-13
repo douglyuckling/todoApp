@@ -7,7 +7,7 @@ function() {
     $rowFragment.append($('<td data-field-name="summary"><td>'));
     $rowFragment.append($('<td data-field-name="priority"></td>'));
     $rowFragment.append($('<td data-field-name="context"></td>'));
-    $rowFragment.append($('<td></td>'));
+    $rowFragment.append($('<td class="actions"><button name="delete" class="btn btn-xs btn-danger glyphicon glyphicon-minus"></td>'));
 
     function cloneRowFragment() {
         return $rowFragment[0].cloneNode(true);
