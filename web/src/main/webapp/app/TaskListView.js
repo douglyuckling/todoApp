@@ -1,8 +1,10 @@
 define(['./TaskListHeaderRowView',
         './TaskListRowView',
+        './EditableTaskListRowView',
         './TaskListNewTaskRowView'],
 function(TaskListHeaderRowView,
          TaskListItemRowView,
+         EditableTaskListItemRowView,
          TaskListNewTaskRowView) {
     'use strict';
 
@@ -28,6 +30,9 @@ function(TaskListHeaderRowView,
 
         events: {
             'click tr[data-task-id] > td[data-field-name=complete]': 'onClickComplete',
+            'click tr[data-task-id] > td[data-field-name] .field-value-editable': 'onClickEditableFieldValue',
+            'click button[name="save-edit"]': 'onClickSaveEditTask',
+            'click button[name="cancel-edit"]': 'onClickCancelEditTask',
             'click button[name="delete"]': 'onClickDeleteTask',
             'click button[name="add"]': 'onClickAddTask'
         },
@@ -67,20 +72,68 @@ function(TaskListHeaderRowView,
         },
 
         onClickComplete: function(e) {
-            var taskId = $(e.currentTarget).closest('[data-taks-id]').attr('data-task-id');
-            var task = this.collection.get(taskId);
+            var task = this.getTaskForEl(e.currentTarget);
             task.set('complete', !task.get('complete'));
             task.save();
         },
 
+        onClickEditableFieldValue: function(e) {
+            var task = this.getTaskForEl(e.currentTarget);
+            // TODO: Don't allow editing if another row is already being edited. (Flash row being edited?)
+            this.startEditing(task);
+        },
+
+        onClickSaveEditTask: function(e) {
+            var task = this.getTaskForEl(e.currentTarget);
+
+            var editableRowView = this.itemRowViewsByTaskId[task.id];
+            task.save(editableRowView.getFormValues());
+
+            this.stopEditing(task);
+        },
+
+        onClickCancelEditTask: function(e) {
+            var task = this.getTaskForEl(e.currentTarget);
+            this.stopEditing(task);
+        },
+
         onClickDeleteTask: function(e) {
-            var taskId = $(e.currentTarget).closest('[data-task-id]').attr('data-task-id');
-            var task = this.collection.get(taskId);
+            var task = this.getTaskForEl(e.currentTarget);
             task.destroy();
         },
 
         onClickAddTask: function(e) {
             this.collection.create(this.newItemRowView.getFormValues(), {wait: true});
+        },
+
+        getTaskForEl: function(el) {
+            return this.collection.get(this.getTaskIdForEl(el));
+        },
+
+        getTaskIdForEl: function(el) {
+            return $(el).closest('[data-task-id]').attr('data-task-id');
+        },
+
+        startEditing: function(task) {
+            var readOnlyView = this.itemRowViewsByTaskId[task.id];
+            var editableView = this.itemRowViewsByTaskId[task.id] = new EditableTaskListItemRowView({
+                model: task,
+                tableView: this
+            });
+
+            editableView.render().$el.insertAfter(readOnlyView.$el);
+            readOnlyView.remove();
+        },
+
+        stopEditing: function(task) {
+            var editableView = this.itemRowViewsByTaskId[task.id];
+            var readOnlyView = this.itemRowViewsByTaskId[task.id] = new TaskListItemRowView({
+                model: task,
+                tableView: this
+            });
+
+            readOnlyView.render().$el.insertAfter(editableView.$el);
+            editableView.remove();
         }
 
     });

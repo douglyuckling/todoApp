@@ -20,5 +20,5 @@ function(TaskCollection,
 
     setTimeout(function() {
         taskCollection.fetch();
-    }, 1000);
+    }, 0);
 });
