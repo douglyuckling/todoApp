@@ -21,4 +21,10 @@ class ExampleContentController {
         return model
     }
 
+    @RequestMapping(value = '/test.html', method = GET)
+    ModelAndView getTest() {
+        def model = new ModelAndView('test')
+        return model
+    }
+
 }
