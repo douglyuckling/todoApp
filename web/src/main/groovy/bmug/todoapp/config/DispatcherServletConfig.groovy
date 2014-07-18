@@ -24,6 +24,8 @@ class DispatcherServletConfig extends WebMvcConfigurationSupport {
 
     @Override
     void addResourceHandlers(ResourceHandlerRegistry registry) {
+        // TODO Only set cache period to 0 in dev mode
+        registry.addResourceHandler('/**').addResourceLocations('/').setCachePeriod(0)
     }
 
     @Override
