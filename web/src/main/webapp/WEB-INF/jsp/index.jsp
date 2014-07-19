@@ -13,8 +13,13 @@
     <link href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
     <script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
+    <!-- Underscore & Backbone -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js"></script>
+
     <!-- App -->
     <link href="/resources/app.css" rel="stylesheet">
+    <script data-main="app" src="http://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.14/require.min.js"></script>
 </head>
 <body>
 <div class="container">
@@ -23,11 +28,9 @@
             <a class="navbar-brand" href="#">ToDo App</a>
         </div>
     </nav>
-    <div class="panel panel-default">
+    <div id="tasks" class="panel panel-default">
         <div class="panel-heading">Tasks</div>
-        <ul class="list-group">
-            <li class="list-group-item">A task!</li>
-        </ul>
+        <ul class="list-group"></ul>
     </div>
 </div>
 </body>
