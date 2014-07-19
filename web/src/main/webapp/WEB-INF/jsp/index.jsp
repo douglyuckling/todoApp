@@ -30,7 +30,6 @@
     </nav>
     <div id="tasks" class="panel panel-default">
         <div class="panel-heading">Tasks</div>
-        <table class="table"></table>
     </div>
 </div>
 </body>

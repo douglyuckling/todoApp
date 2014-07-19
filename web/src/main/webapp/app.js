@@ -13,11 +13,10 @@ function(TaskCollection,
 
     var taskCollection = new TaskCollection();
     var taskListView = new TaskListView({
-        collection: taskCollection,
-        el: document.getElementById('tasks')
+        collection: taskCollection
     });
 
-    taskListView.render();
+    document.getElementById('tasks').appendChild(taskListView.render().el);
 
     setTimeout(function() {
         taskCollection.fetch();

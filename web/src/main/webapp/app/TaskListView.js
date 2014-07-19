@@ -1,10 +1,28 @@
-define([''],
-function() {
+define(['./TaskListHeaderRowView',
+        './TaskListRowView',
+        './TaskListNewTaskRowView'],
+function(TaskListHeaderRowView,
+         TaskListItemRowView,
+         TaskListNewTaskRowView) {
     'use strict';
 
+    var $tableFragment = $(document.createDocumentFragment());
+    $tableFragment.append($('<thead></thead>'));
+    $tableFragment.append($('<tbody></tbody>'));
+    $tableFragment.append($('<tfoot></tfoot>'));
+
+    function cloneTableFragment() {
+        return $tableFragment[0].cloneNode(true);
+    }
+
     return Backbone.View.extend({
+        tagName: 'table',
+        className: 'table',
 
         initialize: function() {
+            this.headerRowView = new TaskListHeaderRowView({tableView: this});
+            this.itemRowViewsByTaskId = {};
+            this.newItemRowView = new TaskListNewTaskRowView({tableView: this});
             this.listenTo(this.collection, 'sync reset', this.render);
         },
 
@@ -12,110 +30,38 @@ function() {
             'click tr[data-task-id] > td[data-field-name=complete]': 'onClickComplete'
         },
 
-        render: function() {
-            var taskTable = this.el.getElementsByTagName('table')[0];
-
-            var thead = taskTable.getElementsByTagName('thead')[0];
-            if (!thead) {
-                thead = taskTable.appendChild(document.createElement('thead'));
-                var theadTr = thead.appendChild(document.createElement('tr'));
-
-                this.visibleFields.forEach(function(fieldName) {
-                    theadTr.appendChild(this.fieldMetadata[fieldName].createHeadTh());
-                }.bind(this));
-            }
-
-            var tbody = taskTable.appendChild(document.createElement('tbody'));
-            this.collection.each(function(task) {
-                var tr = tbody.appendChild(document.createElement('tr'));
-                tr.setAttribute('data-task-id', task.id);
-
-                this.visibleFields.forEach(function(fieldName) {
-                    var td = tr.appendChild(this.fieldMetadata[fieldName].createTd(task));
-                    td.setAttribute('data-field-name', fieldName);
-                }.bind(this));
-            }.bind(this));
-
-            var oldTbody = taskTable.getElementsByTagName('tbody')[0];
-            if (oldTbody) {
-                taskTable.replaceChild(tbody, oldTbody);
-            } else {
-                taskTable.appendChild(tbody);
-            }
-
-            var tfoot = taskTable.getElementsByTagName('tfoot')[0];
-            if (!tfoot) {
-                tfoot = taskTable.appendChild(document.createElement('tfoot'));
-                var tfootTr = tfoot.appendChild(document.createElement('tr'));
-
-                this.visibleFields.forEach(function(fieldName) {
-                    tfootTr.appendChild(this.fieldMetadata[fieldName].createFootTd());
-                }.bind(this));
-            }
-        },
-
         visibleFields: ['complete', 'summary', 'priority', 'context', 'action'],
 
-        fieldMetadata: {
-            'complete': {
-                createHeadTh: function() {
-                    var th = document.createElement('th');
-                    var icon = th.appendChild(document.createElement('span'));
-                    icon.classList.add('glyphicon');
-                    icon.classList.add('glyphicon-ok');
-                    return th;
-                },
-                createTd: function(task) {
-                    return createCheckmarkTd(task.get('complete'));
-                },
-                createFootTd: function() {
-                    return createCheckboxInputTd();
-                }
-            },
-            'summary': {
-                createHeadTh: function() {
-                    return createTextTh('Summary');
-                },
-                createTd: function(task) {
-                    return createTextTd(task.escape('summary'));
-                },
-                createFootTd: function() {
-                    return createTextInputTd();
-                }
-            },
-            'priority': {
-                createHeadTh: function() {
-                    return createTextTh('Priority');
-                },
-                createTd: function(task) {
-                    return createTextTd(task.escape('priority'));
-                },
-                createFootTd: function() {
-                    return createNumberInputTd(0, undefined, 1);
-                }
-            },
-            'context': {
-                createHeadTh: function() {
-                    return createTextTh('Context');
-                },
-                createTd: function(task) {
-                    return createTextTd(task.escape('context'));
-                },
-                createFootTd: function() {
-                    return createTextInputTd();
-                }
-            },
-            'action': {
-                createHeadTh: function() {
-                    return document.createElement('th'); // empty
-                },
-                createTd: function(task) {
-                    return document.createElement('td'); // empty
-                },
-                createFootTd: function() {
-                    return createGlyphiconButtonTd('plus', 'primary');
-                }
+        render: function() {
+            if (!this.el.hasChildNodes()) {
+                var tableFragment = cloneTableFragment()
+                this.el.appendChild(tableFragment);
+
+                this.$thead = this.$('thead').append(this.headerRowView.render().el);
+                this.$tbody = this.$('tbody');
+                this.$tfoot = this.$('tfoot').append(this.newItemRowView.render().el);
             }
+
+            var oldTaskIds = Object.keys(this.itemRowViewsByTaskId);
+            var newTaskIds = this.collection.pluck('id');
+            var exitingTaskIds = _(oldTaskIds).difference(newTaskIds);
+            var enteringTaskIds = _(newTaskIds).difference(oldTaskIds);
+
+            exitingTaskIds.forEach(function(taskId) {
+                this.itemRowViewsByTaskId[taskId].remove();
+                delete this.itemRowViewsByTaskId[taskId];
+            }.bind(this));
+
+            enteringTaskIds.forEach(function(taskId) {
+                var rowView = new TaskListItemRowView({
+                    model: this.collection.get(taskId),
+                    tableView: this
+                });
+                this.itemRowViewsByTaskId[taskId] = rowView;
+                this.$tbody.append(rowView.render().el);
+            }.bind(this));
+
+            return this;
         },
 
         onClickComplete: function(e) {
@@ -126,67 +72,5 @@ function() {
         }
 
     });
-
-    function createTextTd(text) {
-        var td = document.createElement('td');
-        td.appendChild(document.createTextNode(text));
-        return td;
-    }
-
-    function createGlyphiconTd(glyphiconName) {
-        var td = document.createElement('td');
-        var icon = td.appendChild(document.createElement('span'));
-        icon.classList.add('glyphicon');
-        if (glyphiconName) icon.classList.add('glyphicon-' + glyphiconName);
-        return td;
-    }
-
-    function createCheckmarkTd(checked) {
-        var td = createGlyphiconTd(checked ? 'ok' : null);
-        td.classList.add('checkmark');
-        return td;
-    }
-
-    function createGlyphiconButtonTd(glyphiconName, buttonStyle) {
-        var td = document.createElement('td');
-        var icon = td.appendChild(document.createElement('button'));
-        icon.classList.add('btn');
-        icon.classList.add('glyphicon');
-        if (glyphiconName) icon.classList.add('glyphicon-' + glyphiconName);
-        if (buttonStyle) icon.classList.add('btn-' + buttonStyle);
-        return td;
-    }
-
-    function createTextTh(text) {
-        var th = document.createElement('th');
-        th.appendChild(document.createTextNode(text));
-        return th;
-    }
-
-    function createTextInputTd() {
-        var td = document.createElement('td');
-        var input = td.appendChild(document.createElement('input'));
-        input.classList.add('form-control');
-        input.setAttribute('type', 'text');
-        return td;
-    }
-
-    function createNumberInputTd(min, max, step) {
-        var td = document.createElement('td');
-        var input = td.appendChild(document.createElement('input'));
-        input.classList.add('form-control');
-        input.setAttribute('type', 'number');
-        if (typeof min === 'number') input.setAttribute('min', String(min));
-        if (typeof max === 'number') input.setAttribute('max', String(max));
-        if (typeof step === 'number') input.setAttribute('step', String(step));
-        return td;
-    }
-
-    function createCheckboxInputTd() {
-        var td = document.createElement('td');
-        var input = td.appendChild(document.createElement('input'));
-        input.setAttribute('type', 'checkbox');
-        return td;
-    }
 
 });
