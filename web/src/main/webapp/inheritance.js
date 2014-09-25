@@ -7,6 +7,7 @@ Function.prototype.inheritsFrom = function(parentClass) {
     });
 
     Object.defineProperties(childClass.prototype, {
+        constructor: { value: childClass },
         __super: { value: parentClass },
         __super_apply: __super_apply
     });
