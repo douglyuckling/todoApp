@@ -3,20 +3,20 @@ TodoApp
 
 A simple ToDo app to demonstrate a particular technology stack:
 
-[MongoDB](mongodb.org) /
-[Groovy](groovy.codehaus.org) /
-[Spring Framework](projects.spring.io/spring-framework/) /
-[Spring Data](projects.spring.io/spring-data-mongodb/) /
-[Spock](code.google.com/p/spock/) /
-[Gradle](gradle.org)
+[MongoDB](http://mongodb.org) /
+[Groovy](http://groovy.codehaus.org) /
+[Spring Framework](http://projects.spring.io/spring-framework/) /
+[Spring Data](http://projects.spring.io/spring-data-mongodb/) /
+[Spock](http://docs.spockframework.org/) /
+[Gradle](http://gradle.org)
 
 Getting Started
 ---------------
 
-1. No surprise here: this project uses MongoDB. If you haven't already installed MongoDB, [do that first](docs.mongodb.org/manual/installation/).
+1. No surprise here: this project uses MongoDB. If you haven't already installed MongoDB, [do that first](http://docs.mongodb.org/manual/installation/).
 2. Make sure that MongoDB is running. This project uses a database called `todoapp`.
 3. Use Git to clone ths project, or just download and extract the ZIP from GitHub.
-4. The project is built with [Gradle](gradle.org). It includes the Gradle Wrapper, so you don't need to install Gradle manually. Just open up a terminal on Linux or OSX and type:
+4. The project is built with [Gradle](http://gradle.org). It includes the Gradle Wrapper, so you don't need to install Gradle manually. Just open up a terminal on Linux or OSX and type:
         ./gradlew jettyRun
     That will start up a local Jetty web server on port `8080`.
     This will likely take a few minutes the first time you run it. See below for details.
